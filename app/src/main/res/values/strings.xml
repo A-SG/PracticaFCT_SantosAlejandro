@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Practica1_SantosAlejandro</string>
+    <string name="tvConsumo">&lt; Consumo</string>
+    <string name="tvFacturas">Facturas</string>
+    <string name="tvInformacion">Información</string>
+    <string name="tvfunciónNoDisponible">Esta funcionalidad aún no está disponible</string>
+    <string name="btnCerrar">Cerrar</string>
+    <string name="tvFiltro">Filtrar Facturas</string>
+    <string name="tvfechaAdmision">Con fecha de admisión</string>
+    <string name="desde">Desde:</string>
+    <string name="hasta">Hasta:</string>
+    <string name="fecha">dia/mes/año</string>
+    <string name="importe">Por un importe </string>
+    <string name="estado">Por estado</string>
+    <string name="pagadas">Pagadas</string>
+    <string name="anuladas">Anuladas</string>
+    <string name="cuotafija">Cuota Fija</string>
+    <string name="pendientesPago">Pendientes de PAgo</string>
+    <string name="planDePago">Plan de pago</string>
+    <string name="aplicarFiltro">Aplicar filtros</string>
+    <string name="borrarFiltros">Borrar filtros</string>
+</resources>
