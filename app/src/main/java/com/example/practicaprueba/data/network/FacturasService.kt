@@ -4,14 +4,13 @@ import com.example.practicaprueba.core.RetrofitHelper
 import com.example.practicaprueba.data.model.NumFactura
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FacturasService {
-
-    private val retrofit = RetrofitHelper.getRetrofit()
+class FacturasService @Inject constructor(private val api : ApiService){
 
     suspend fun getFacturas() : NumFactura {
         return withContext(Dispatchers.IO){
-            val response = retrofit.create(ApiService::class.java).getFacturas()
+            val response = api.getFacturas()
             response.body()!!
         }
     }

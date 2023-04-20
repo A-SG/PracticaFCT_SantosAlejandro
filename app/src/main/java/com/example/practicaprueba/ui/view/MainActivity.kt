@@ -8,8 +8,10 @@ import androidx.lifecycle.Observer
 import com.example.practicaprueba.data.adapter.FacturasAdapter
 import com.example.practicaprueba.databinding.ActivityMainBinding
 import com.example.practicaprueba.ui.viewmodel.FacturasViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

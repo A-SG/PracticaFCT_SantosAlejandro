@@ -3,8 +3,8 @@ package com.example.practicaprueba.data.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.practicaprueba.data.model.Factura
 import com.example.practicaprueba.R
+import com.example.practicaprueba.domain.model.Factura
 
 class FacturasAdapter(var  facturas: List<Factura>): RecyclerView.Adapter<FacturasViewHolder>(){
 
