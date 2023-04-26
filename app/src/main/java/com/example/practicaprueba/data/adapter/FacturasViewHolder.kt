@@ -9,7 +9,7 @@ import android.widget.PopupWindow
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practicaprueba.R
 import com.example.practicaprueba.databinding.ItemFacturaBinding
-import com.example.practicaprueba.domain.model.Factura
+import com.example.practicaprueba.data.network.domain.model.Factura
 
 
 class FacturasViewHolder (view: View): RecyclerView.ViewHolder(view) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.SecondActivity">
+    tools:context=".data.network.domain.ui.view.SecondActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -175,21 +175,22 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textView10"
+                        app:layout_constraintBottom_toTopOf="@+id/tvImporteMaximo"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView9"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
                         android:layout_marginEnd="300dp"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView10"
+                        app:layout_constraintEnd_toStartOf="@+id/tvImporteMaximo"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.398"
                         tools:text="0€" />
 
                     <com.google.android.material.slider.Slider
@@ -199,27 +200,31 @@
                         android:layout_marginStart="22dp"
                         android:layout_marginEnd="22dp"
                         android:layout_marginBottom="10dp"
+                        android:value="0"
+                        android:valueFrom="0"
+                        android:valueTo="300"
                         app:haloColor="#8BC34A"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/tvImporteMaximo"
                         app:thumbColor="@color/green"
                         app:thumbStrokeColor="@color/green"
                         app:tickColor="@color/green"
                         app:tickColorActive="@color/green"
                         app:tickColorInactive="@color/green"
                         app:trackColorActive="@color/green"
-                        app:trackColorInactive="@color/green" />
+                        app:trackColorInactive="@color/gris" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/tvImporteMaximo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="16dp"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toTopOf="@+id/slider2"
+                        app:layout_constraintBottom_toTopOf="@+id/slImporte"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView9"
                         app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -285,8 +290,8 @@
 
                     <CheckBox
                         android:id="@+id/cbPedientesPago"
-                        android:layout_width="217dp"
-                        android:layout_height="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:text="@string/pendientesPago"
                         android:textSize="20sp"

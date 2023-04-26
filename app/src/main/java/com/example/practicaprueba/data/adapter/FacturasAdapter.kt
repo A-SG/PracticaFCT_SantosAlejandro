@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practicaprueba.R
-import com.example.practicaprueba.domain.model.Factura
+import com.example.practicaprueba.data.network.domain.model.Factura
 
 class FacturasAdapter(var  facturas: List<Factura>): RecyclerView.Adapter<FacturasViewHolder>(){
 
@@ -20,7 +20,11 @@ class FacturasAdapter(var  facturas: List<Factura>): RecyclerView.Adapter<Factur
     override fun onBindViewHolder(holder: FacturasViewHolder, position: Int) {
         val item = facturas[position]
         holder.bind(item)
+    }
 
+    fun actualizarLista( listaFacturas: List<Factura> ){
+        this.facturas = listaFacturas
+        notifyDataSetChanged()
     }
 
 

@@ -7,11 +7,7 @@ import com.example.practicaprueba.data.model.FacturaModel
 
 
 @Database(entities = [FacturaModel::class], version = 1)
-
 abstract class FacturasDatabase : RoomDatabase() {
 
     abstract fun getFacturas(): FacturaDao
-
-
-
 }

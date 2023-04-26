@@ -3,7 +3,7 @@ package com.example.practicaprueba.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.practicaprueba.domain.model.Factura
+import com.example.practicaprueba.data.network.domain.model.Factura
 
 @Entity(tableName = "table_facturas")
 data class FacturaModel (
