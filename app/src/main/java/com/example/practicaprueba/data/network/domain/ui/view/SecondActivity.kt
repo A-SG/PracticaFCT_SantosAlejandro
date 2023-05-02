@@ -15,6 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.ceil
+
 
 
 @AndroidEntryPoint
@@ -22,8 +24,6 @@ class SecondActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivitySecondBinding
     @Inject lateinit var facturaRepository :FacturaRepository
-    //private lateinit var adapter : FacturasAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +36,7 @@ class SecondActivity : AppCompatActivity(){
         config.setLocale(locale)
         baseContext.createConfigurationContext(config)
 
-
         binding.imageButtonSalir.setOnClickListener(){
-            /*val resultIntent = Intent()
-            val listaFacturas : String
-            val json = Gson()
-            listaFacturas = json.toJson(getParametrosEntradaActividad())
-            resultIntent.putExtra("ListaFiltrada",listaFacturas)
-            setResult(RESULT_OK, resultIntent)*/
             finish()
         }
 
@@ -67,21 +60,12 @@ class SecondActivity : AppCompatActivity(){
             binding.cbPlanpago.isChecked = false
         }
 
+        binding.slImporte.addOnChangeListener { slider, value, fromUser ->
+            binding.variacionImporte.text = ceil(value).toInt().toString()
+        }
+
         //Botón de aplicar filtros a la correspondintes facturas
         binding.btnAplicarFiltros.setOnClickListener(){
-            /*val intent = Intent(this, MainActivity::class.java)
-            //startActivity(intent)
-            intent.putExtra("fechaInicio", binding.fechaInicial.text.toString())
-            intent.putExtra("fechaFin", binding.fechaFin.text.toString())
-            intent.putExtra("SliderImporte", binding.slImporte.value)
-            intent.putExtra("Pagadas", binding.cbPagadas.isChecked)
-            intent.putExtra("Anuladas", binding.cbAnuladas.isChecked)
-            intent.putExtra("Cuotafija", binding.cbCuotafija.isChecked)
-            intent.putExtra("Planpago", binding.cbPlanpago.isChecked)
-            intent.putExtra("PedientesPago", binding.cbPedientesPago.isChecked)
-            setResult(RESULT_OK, intent)
-            getParametrosEntradaActividad()*/
-
             val resultIntent = Intent()
             val listaFacturas : String
             val json = Gson()
@@ -96,7 +80,6 @@ class SecondActivity : AppCompatActivity(){
     private fun mostrarDatepicker() {
         val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day,month,year) }
         datePicker.show(supportFragmentManager, "datePicker")
-
     }
 
     fun onDateSelected(day:Int, month: Int, year:Int){
@@ -110,7 +93,6 @@ class SecondActivity : AppCompatActivity(){
         val datePicker = DatePickerFragment { day, month, year -> onDateSelectedEnd(day,month,year) }
         datePicker.show(supportFragmentManager, "datePicker")
     }
-
 
     //Función de filtrado de facturas
     private fun getParametrosEntradaActividad() : List<Factura>{
@@ -128,41 +110,74 @@ class SecondActivity : AppCompatActivity(){
         if (jsonFiltroFacturasModel != null && jsonFiltroFacturasModel.isNotEmpty()) {
             facturas = json.fromJson(jsonFiltroFacturasModel, object : TypeToken<List<Factura?>?>() {}.type)
 
+            var pagadas = emptyList<Factura>()
+            var anuladas = emptyList<Factura>()
+            var cuotaFija = emptyList<Factura>()
+            var planPago = emptyList<Factura>()
+            var pendientesPago = emptyList<Factura>()
 
-            //Filtrado de factura por su importe
-            listaFiltrada = facturas.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
+            if (binding.cbPagadas.isChecked)
+            {
+                pagadas = facturas.filter { factura: Factura -> factura.descEstado == "Pagada" }
+            }
+
+            if (binding.cbAnuladas.isChecked)
+            {
+                anuladas = facturas.filter { factura: Factura -> factura.descEstado == "Anuladas" }
+            }
+
+            if (binding.cbCuotafija.isChecked)
+            {
+
+                cuotaFija = facturas.filter { factura: Factura -> factura.descEstado == "Cuota Fija" }
+
+            }
+
+            if (binding.cbPlanpago.isChecked)
+            {
+                planPago = facturas.filter { factura: Factura -> factura.descEstado == "Plan de pago" }
+            }
+
+            if (binding.cbPedientesPago.isChecked) {
+                pendientesPago = facturas.filter { factura: Factura -> factura.descEstado == "Pendiente de pago" }
+            }
+
+            var listaPorEstado = pagadas + anuladas + planPago + cuotaFija + pendientesPago
+            listaFiltrada = listaPorEstado
+
+            Log.d("listaporetsado", listaFiltrada.toString())
+
 
             //Filtrado de facturas por fecha de inicio y fecha de fin
             if (binding.fechaInicial.text.toString() != "dia/mes/año" && binding.fechaFin.text.toString() != "dia/mes/año" ){
                 firstDate = formatoFecha.parse(binding.fechaFin.text.toString())
                 secondDate = formatoFecha.parse(binding.fechaInicial.text.toString())
-                listaFiltrada = facturas.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate && formatoFecha.parse(factura.fecha) <= firstDate}
+
+                Log.d("firstDate", firstDate.toString())
+                Log.d("SeconDate", secondDate.toString())
+
+                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate && formatoFecha.parse(factura.fecha) <= firstDate}
+            }
+            else  if (binding.fechaInicial.text.toString() == "dia/mes/año" && binding.fechaFin.text.toString() != "dia/mes/año" ){
+                firstDate = formatoFecha.parse(binding.fechaFin.text.toString())
+                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) <= firstDate}
+
+            }else  if (binding.fechaInicial.text.toString() != "dia/mes/año" && binding.fechaFin.text.toString() == "dia/mes/año" ){
+
+                secondDate = formatoFecha.parse(binding.fechaInicial.text.toString())
+                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate }
             }
 
-            //Filtrado de facturas por estado
-            if (binding.cbPagadas.isChecked)
-            {
-                    listaFiltrada += facturas.filter { factura: Factura -> factura.descEstado == "Pagada" }
-            }
 
-            if (binding.cbPagadas.isChecked)
-            {
-                listaFiltrada += facturas.filter { factura: Factura -> factura.descEstado == "Anuladas" }
-            }
+            Log.d("slider", binding.slImporte.value.toString())
 
-            if (binding.cbPagadas.isChecked)
-            {
-                listaFiltrada += facturas.filter { factura: Factura -> factura.descEstado == "Cuota Fija" }
+            //Filtrado de factura por su importe
+            if (listaFiltrada.isEmpty()){
+                listaFiltrada = facturas.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
+                Log.d("ListaImporte", listaFiltrada.toString())
             }
-
-            if (binding.cbPagadas.isChecked)
-            {
-                listaFiltrada += facturas.filter { factura: Factura -> factura.descEstado == "Plan de pago" }
-            }
-
-            if (binding.cbPedientesPago.isChecked)
-            {
-                listaFiltrada += facturas.filter { factura: Factura -> factura.descEstado == "Pendiente de pago" }
+            if(binding.slImporte.value.toDouble() != 0.0){
+                listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
             }
             Log.d("listaFiltradaFecha1", listaFiltrada.toString())
         }

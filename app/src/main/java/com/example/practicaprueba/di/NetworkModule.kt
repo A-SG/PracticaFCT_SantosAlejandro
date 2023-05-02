@@ -26,6 +26,5 @@ object NetworkModule {
     @Provides
     fun providesFacturasApi(retrofit: Retrofit): ApiService{
         return retrofit.create(ApiService::class.java)
-
     }
 }

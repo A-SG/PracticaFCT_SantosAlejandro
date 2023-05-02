@@ -13,5 +13,4 @@ data class FacturaModel (
     @ColumnInfo(name = "Importe") var importeOrdenacion: Double,
     @ColumnInfo(name = "Fecha") var fecha: String
 )
-
 fun Factura.toDatabase() = FacturaModel(descEstado = descEstado, importeOrdenacion = importeOrdenacion, fecha = fecha)

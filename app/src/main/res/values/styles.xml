@@ -7,5 +7,7 @@
     <style name="datePicker" parent="android:Theme.Material.Light.Dialog">
         <item name="colorAccent">@color/green</item>
     </style>
-
+    <style name="botonSinBordes" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@null</item>
+    </style>
 </resources>
