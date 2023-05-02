@@ -212,7 +212,7 @@
                         android:id="@+id/tvImporteMaximo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="26dp"
+                        android:layout_marginEnd="25dp"
                         android:layout_marginBottom="18dp"
                         android:text="@string/importemaximo"
                         android:textSize="20sp"
@@ -223,19 +223,14 @@
                         android:id="@+id/variacion_importe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="27dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView6"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginStart="36dp"
+                        android:layout_marginBottom="18dp"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/slImporte"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        tools:text="30"
+                        android:textColor="@color/green"/>
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:text="@string/importeselecionadominimo"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/variacion_importe"
-                        app:layout_constraintStart_toEndOf="@+id/textView8" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

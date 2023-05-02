@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.ceil
-
+import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -24,6 +24,9 @@ class SecondActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivitySecondBinding
     @Inject lateinit var facturaRepository :FacturaRepository
+    private lateinit var facturas :kotlin.collections.List<Factura>
+    private lateinit var jsonFiltroFacturasModel : String
+    private  var json : Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,16 +67,29 @@ class SecondActivity : AppCompatActivity(){
             binding.variacionImporte.text = ceil(value).toInt().toString()
         }
 
+
         //Botón de aplicar filtros a la correspondintes facturas
         binding.btnAplicarFiltros.setOnClickListener(){
             val resultIntent = Intent()
             val listaFacturas : String
             val json = Gson()
             listaFacturas = json.toJson(getParametrosEntradaActividad())
+            Log.d("ListaFiltradaParaIntent", listaFacturas)
             resultIntent.putExtra("ListaFiltrada",listaFacturas)
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+
+        jsonFiltroFacturasModel = intent.getStringExtra("listaFacturasSinFiltrar").toString()
+        facturas = json.fromJson(jsonFiltroFacturasModel, object : TypeToken<List<Factura?>?>() {}.type)
+        var ordenPorImporte = facturas.sortedByDescending { facturas: Factura -> facturas.importeOrdenacion }
+        binding.tvImporteMaximo.text = (ordenPorImporte.first().importeOrdenacion.toInt()+1).toString()
+        binding.slImporte.valueTo = ceil(ordenPorImporte.first().importeOrdenacion).toFloat()
+
+
+        Log.d("listaparaspinner", facturas.toString())
+
+
     }
 
 
@@ -98,9 +114,9 @@ class SecondActivity : AppCompatActivity(){
     private fun getParametrosEntradaActividad() : List<Factura>{
 
         //Variables
-        var facturas: List<Factura>
-        val json= Gson()
-        val jsonFiltroFacturasModel = intent.getStringExtra("listaFacturasSinFiltrar")
+        //var facturas: List<Factura>
+        //val json= Gson()
+        jsonFiltroFacturasModel = intent.getStringExtra("listaFacturasSinFiltrar").toString()
         var listaFiltrada = emptyList<Factura>()
         val formatoFecha =  SimpleDateFormat("dd/MM/yyyy")
         val firstDate :Date
@@ -145,7 +161,7 @@ class SecondActivity : AppCompatActivity(){
             var listaPorEstado = pagadas + anuladas + planPago + cuotaFija + pendientesPago
             listaFiltrada = listaPorEstado
 
-            Log.d("listaporetsado", listaFiltrada.toString())
+            Log.d("listaporEstsado", listaFiltrada.toString())
 
 
             //Filtrado de facturas por fecha de inicio y fecha de fin
@@ -169,7 +185,7 @@ class SecondActivity : AppCompatActivity(){
             }
 
 
-            Log.d("slider", binding.slImporte.value.toString())
+            Log.d("ListaFiltradaPorFecha", listaFiltrada.toString())
 
             //Filtrado de factura por su importe
             if (listaFiltrada.isEmpty()){
@@ -179,9 +195,14 @@ class SecondActivity : AppCompatActivity(){
             if(binding.slImporte.value.toDouble() != 0.0){
                 listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
             }
-            Log.d("listaFiltradaFecha1", listaFiltrada.toString())
+            Log.d("listaFiltradaPorImporte", listaFiltrada.toString())
         }
-        Log.d("ListaFiltradadesdejson" , listaFiltrada.toString())
+
+        Log.d("ListaFiltradaCompleta" , listaFiltrada.toString())
+
+        if(listaFiltrada.isEmpty())
+            listaFiltrada = facturas
+
         return  listaFiltrada
     }
 }

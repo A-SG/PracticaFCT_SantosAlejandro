@@ -22,10 +22,12 @@ class FacturasAdapter(var  facturas: List<Factura>): RecyclerView.Adapter<Factur
         holder.bind(item)
     }
 
+
     fun actualizarLista( listaFacturas: List<Factura> ){
         this.facturas = listaFacturas
-        notifyDataSetChanged()
+        super.notifyDataSetChanged()
     }
+
 
 
 }
