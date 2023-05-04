@@ -85,6 +85,7 @@ class SecondActivity : AppCompatActivity(){
         var ordenPorImporte = facturas.sortedByDescending { facturas: Factura -> facturas.importeOrdenacion }
         binding.tvImporteMaximo.text = (ordenPorImporte.first().importeOrdenacion.toInt()+1).toString()
         binding.slImporte.valueTo = ceil(ordenPorImporte.first().importeOrdenacion).toFloat()
+        binding.slImporte.value = 0.0.toFloat()
 
 
         Log.d("listaparaspinner", facturas.toString())
@@ -113,6 +114,9 @@ class SecondActivity : AppCompatActivity(){
     //Función de filtrado de facturas
     private fun getParametrosEntradaActividad() : List<Factura>{
 
+
+
+
         //Variables
         //var facturas: List<Factura>
         //val json= Gson()
@@ -125,6 +129,7 @@ class SecondActivity : AppCompatActivity(){
         //Obtención de listado de facturas procedentes del main activity
         if (jsonFiltroFacturasModel != null && jsonFiltroFacturasModel.isNotEmpty()) {
             facturas = json.fromJson(jsonFiltroFacturasModel, object : TypeToken<List<Factura?>?>() {}.type)
+
 
             var pagadas = emptyList<Factura>()
             var anuladas = emptyList<Factura>()
@@ -159,7 +164,14 @@ class SecondActivity : AppCompatActivity(){
             }
 
             var listaPorEstado = pagadas + anuladas + planPago + cuotaFija + pendientesPago
-            listaFiltrada = listaPorEstado
+
+            Log.d("lista", facturas.toString())
+            if (listaPorEstado.isEmpty()){
+                listaFiltrada = facturas
+            }else{
+                listaFiltrada = listaPorEstado
+            }
+
 
             Log.d("listaporEstsado", listaFiltrada.toString())
 
@@ -172,16 +184,16 @@ class SecondActivity : AppCompatActivity(){
                 Log.d("firstDate", firstDate.toString())
                 Log.d("SeconDate", secondDate.toString())
 
-                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate && formatoFecha.parse(factura.fecha) <= firstDate}
+                listaFiltrada = listaFiltrada.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate && formatoFecha.parse(factura.fecha) <= firstDate}
             }
             else  if (binding.fechaInicial.text.toString() == "dia/mes/año" && binding.fechaFin.text.toString() != "dia/mes/año" ){
                 firstDate = formatoFecha.parse(binding.fechaFin.text.toString())
-                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) <= firstDate}
+                listaFiltrada = listaFiltrada.filter { factura: Factura -> formatoFecha.parse(factura.fecha) <= firstDate}
 
             }else  if (binding.fechaInicial.text.toString() != "dia/mes/año" && binding.fechaFin.text.toString() == "dia/mes/año" ){
 
                 secondDate = formatoFecha.parse(binding.fechaInicial.text.toString())
-                listaFiltrada = listaPorEstado.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate }
+                listaFiltrada = listaFiltrada.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate }
             }
 
 
@@ -191,17 +203,22 @@ class SecondActivity : AppCompatActivity(){
             if (listaFiltrada.isEmpty()){
                 listaFiltrada = facturas.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
                 Log.d("ListaImporte", listaFiltrada.toString())
-            }
-            if(binding.slImporte.value.toDouble() != 0.0){
+            }else{
                 listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
+                Log.d("ListaImporte2", listaFiltrada.toString())
             }
+            /*if(binding.slImporte.value.toDouble() != 0.0){
+                listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
+            }*/
             Log.d("listaFiltradaPorImporte", listaFiltrada.toString())
         }
 
         Log.d("ListaFiltradaCompleta" , listaFiltrada.toString())
 
-        if(listaFiltrada.isEmpty())
+        if(binding.fechaInicial.text == "dia/mes/año" && binding.fechaFin.text == "dia/mes/año" && binding.slImporte.value == 0.0.toFloat() &&
+            !binding.cbPagadas.isChecked && !binding.cbAnuladas.isChecked && !binding.cbCuotafija.isChecked &&  !binding.cbPlanpago.isChecked && !binding.cbPedientesPago.isChecked){
             listaFiltrada = facturas
+        }
 
         return  listaFiltrada
     }

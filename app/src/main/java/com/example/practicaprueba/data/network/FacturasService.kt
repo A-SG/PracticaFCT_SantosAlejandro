@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FacturasService @Inject constructor(private val api : ApiService, private val mock : RetromockService){
-
     suspend fun getFacturas() : NumFactura {
         return withContext(Dispatchers.IO){
             val response = try {
