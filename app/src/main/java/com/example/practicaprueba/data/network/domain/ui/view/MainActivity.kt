@@ -70,14 +70,11 @@ class MainActivity : AppCompatActivity() {
                lifecycleScope.launch {
                    withContext(Dispatchers.IO){
                        var result = getFacturasUseCase()
-                       Log.d("listaporintent", result.toString())
                        val intent = Intent(this@MainActivity, SecondActivity::class.java)
 
                        if (result.isNotEmpty()){
-                           //facturasViewModel.onCreate()
                            listadoFiltraFactura = gson.toJson(result)
                            intent.putExtra("listaFacturasSinFiltrar", listadoFiltraFactura)
-                           Log.d("listaporintent", listadoFiltraFactura)
                            responseLauncher.launch(intent)
                        }
                    }

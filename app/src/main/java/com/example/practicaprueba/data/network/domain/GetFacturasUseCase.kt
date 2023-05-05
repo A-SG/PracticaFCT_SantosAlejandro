@@ -11,7 +11,6 @@ class GetFacturasUseCase @Inject constructor(private val repository : FacturaRep
 
     suspend operator fun invoke(): List<Factura> {
         val facturas = repository.getFacturasApi()
-        Log.d("prueba", facturas.toString())
 
         return if (facturas.isNotEmpty()){
             repository.clearFacturas()
