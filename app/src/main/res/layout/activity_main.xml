@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.MainActivity">
+    tools:context=".data.network.domain.ui.view.MainActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -17,10 +17,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/button2">
 
             <Button
                 android:id="@+id/button2"
+                style="@style/botonSinBordes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -36,29 +39,41 @@
                 android:id="@+id/imageButtonFiltro"
                 android:layout_width="41dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="37dp"
+                android:layout_marginBottom="21dp"
                 android:background="@color/white"
                 android:src="@drawable/img"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/activarRetromock"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.831"
-                app:layout_constraintStart_toEndOf="@+id/button2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.226" />
+                app:layout_constraintStart_toStartOf="@+id/activarRetromock"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="@string/tvFacturas"
                 android:textColor="@color/black"
                 android:textSize="40sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.066"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button2" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/activarRetromock"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="27dp"
+                android:text="@string/activarRetromock"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 

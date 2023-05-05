@@ -15,8 +15,13 @@
     <string name="pagadas">Pagadas</string>
     <string name="anuladas">Anuladas</string>
     <string name="cuotafija">Cuota Fija</string>
-    <string name="pendientesPago">Pendientes de PAgo</string>
+    <string name="pendientesPago">Pendientes de Pago</string>
     <string name="planDePago">Plan de pago</string>
     <string name="aplicarFiltro">Aplicar filtros</string>
     <string name="borrarFiltros">Borrar filtros</string>
+    <string name="importeminimo">0€</string>
+    <string name="importemaximo">300€</string>
+    <string name="importeselecionadominimo">0 -</string>
+    <string name="activarRetromock">Retromock</string>
+
 </resources>

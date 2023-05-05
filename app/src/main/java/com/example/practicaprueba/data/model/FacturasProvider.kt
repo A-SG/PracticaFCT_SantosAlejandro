@@ -1,10 +1,7 @@
 package com.example.practicaprueba.data.model
 
-import com.example.practicaprueba.data.model.Factura
+import javax.inject.Inject
 
-class FacturasProvider {
-    companion object{
-
-        var facturas:List<Factura> = emptyList()
-    }
+class FacturasProvider @Inject constructor(){
+    var facturas:List<FacturaModel> = emptyList()
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.SecondActivity">
+    tools:context=".data.network.domain.ui.view.SecondActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -39,7 +39,8 @@
                 android:background="@color/white"
                 android:src="@drawable/icono_salir"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/textView3"
@@ -169,61 +170,67 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="18dp"
                         android:text="@string/importe"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textView10"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="22dp"
-                        android:layout_marginEnd="300dp"
+                        android:id="@+id/tvImporteMinimo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="18dp"
+                        android:text="@string/importeminimo"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView10"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0€" />
+                        app:layout_constraintBottom_toTopOf="@+id/slImporte"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.slider.Slider
                         android:id="@+id/slImporte"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="22dp"
-                        android:layout_marginEnd="22dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="11dp"
+                        android:value="0"
+                        android:valueFrom="0"
+                        android:valueTo="300"
                         app:haloColor="#8BC34A"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10"
                         app:thumbColor="@color/green"
                         app:thumbStrokeColor="@color/green"
                         app:tickColor="@color/green"
                         app:tickColorActive="@color/green"
                         app:tickColorInactive="@color/green"
                         app:trackColorActive="@color/green"
-                        app:trackColorInactive="@color/green" />
+                        app:trackColorInactive="@color/gris" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/tvImporteMaximo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginBottom="18dp"
+                        android:text="@string/importemaximo"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toTopOf="@+id/slider2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView9"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        tools:text="300€" />
+                        app:layout_constraintBottom_toTopOf="@+id/slImporte"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/variacion_importe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginBottom="18dp"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/slImporte"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        tools:text="30"
+                        android:textColor="@color/green"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -285,8 +292,8 @@
 
                     <CheckBox
                         android:id="@+id/cbPedientesPago"
-                        android:layout_width="217dp"
-                        android:layout_height="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:text="@string/pendientesPago"
                         android:textSize="20sp"
@@ -328,8 +335,10 @@
     </ScrollView>
 
     <Button
+        android:background="@drawable/borde_botones"
+        style="@style/botonSinBordes"
         android:id="@+id/btnAplicarFiltros"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
         android:layout_marginEnd="67dp"
@@ -342,8 +351,9 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
 
     <Button
+        style="@style/botonSinBordes"
         android:id="@+id/btnBorrarFiltros"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/white"
