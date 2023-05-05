@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -16,6 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    //Retrofit
     @Singleton
     @Provides
     fun provideRetrofit():Retrofit{
@@ -25,13 +25,14 @@ object NetworkModule {
             .build()
     }
 
+
     @Singleton
     @Provides
     fun providesFacturasApi(retrofit: Retrofit): ApiService{
         return retrofit.create(ApiService::class.java)
     }
 
-
+    //Retromock
     @Singleton
     @Provides
     fun provideRetromock(): Retromock {

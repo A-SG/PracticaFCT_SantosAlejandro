@@ -2,12 +2,10 @@ package com.example.practicaprueba.data.network.domain
 
 
 import com.example.practicaprueba.data.FacturaRepository
-import com.example.practicaprueba.data.model.toDatabase
 import com.example.practicaprueba.data.network.domain.model.Factura
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -19,7 +17,6 @@ class GetFacturasUseCaseTest{
     @RelaxedMockK
     private lateinit var  repository : FacturaRepository
     lateinit var  getFacturasUseCase: GetFacturasUseCase
-
 
     @Before
     fun onBefore(){

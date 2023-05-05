@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.practicaprueba.data.database.dao.FacturaDao
 import com.example.practicaprueba.data.model.FacturaModel
 import com.example.practicaprueba.data.network.FacturasService
-import com.example.practicaprueba.data.network.domain.RetromockService
 import com.example.practicaprueba.data.network.domain.model.Factura
 import com.example.practicaprueba.data.network.domain.model.toDomain
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +13,7 @@ import javax.inject.Inject
 class FacturaRepository @Inject constructor(private val facturasDao: FacturaDao,
                                             private val apiService: FacturasService){
 
-    /*suspend fun getFacturasApi(): List<FacturaModel> {
-        val response = api.getFacturas()
-        facturasProvider.facturas = response.facturas
-        return response.facturas
-    }*/
-
+    //Obtener facturas de la Api
     suspend fun getFacturasApi(): List<Factura> {
         return withContext(Dispatchers.IO){
             val response: List<FacturaModel> = apiService.getFacturas().facturas
@@ -28,7 +22,7 @@ class FacturaRepository @Inject constructor(private val facturasDao: FacturaDao,
             }
         }
 
-
+        //Obtener facturas de la base de datos
         suspend fun getFacturasDatabase(): List<Factura> {
             return withContext(Dispatchers.IO) {
                 val response: List<FacturaModel> = facturasDao.getFacturas()
@@ -36,6 +30,8 @@ class FacturaRepository @Inject constructor(private val facturasDao: FacturaDao,
                 response.map { it.toDomain() }
             }
         }
+
+
         suspend fun insertFacturas(facturas: List<FacturaModel>) {
             withContext(Dispatchers.IO)
             {

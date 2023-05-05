@@ -2,10 +2,7 @@ package com.example.practicaprueba.data.network.domain
 
 import co.infinum.retromock.meta.Mock
 import co.infinum.retromock.meta.MockResponse
-import com.example.practicaprueba.data.model.FacturaModel
 import com.example.practicaprueba.data.model.NumFactura
-import com.example.practicaprueba.data.network.domain.model.Factura
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 

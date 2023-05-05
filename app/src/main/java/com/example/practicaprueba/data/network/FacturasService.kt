@@ -1,7 +1,6 @@
 package com.example.practicaprueba.data.network
 
 import android.util.Log
-import com.example.practicaprueba.core.RetrofitHelper
 import com.example.practicaprueba.data.model.NumFactura
 import com.example.practicaprueba.data.network.domain.RetromockService
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +16,7 @@ class FacturasService @Inject constructor(private val api : ApiService, private 
                 mock.getFactura()
             }
             Log.d("ListaConRetromock" , response.body().toString())
-            response?.body()!!
+            response.body()!!
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.example.practicaprueba.data.network.domain
 
-import android.util.Log
 import com.example.practicaprueba.data.FacturaRepository
-import com.example.practicaprueba.data.model.FacturaModel
 import com.example.practicaprueba.data.model.toDatabase
 import com.example.practicaprueba.data.network.domain.model.Factura
 import javax.inject.Inject

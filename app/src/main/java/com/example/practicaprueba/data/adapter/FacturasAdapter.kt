@@ -21,13 +21,4 @@ class FacturasAdapter(var  facturas: List<Factura>): RecyclerView.Adapter<Factur
         val item = facturas[position]
         holder.bind(item)
     }
-
-
-    fun actualizarLista( listaFacturas: List<Factura> ){
-        this.facturas = listaFacturas
-        super.notifyDataSetChanged()
-    }
-
-
-
 }
