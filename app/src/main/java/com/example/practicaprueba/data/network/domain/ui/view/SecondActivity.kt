@@ -113,13 +113,7 @@ class SecondActivity : AppCompatActivity(){
 
     //Función de filtrado de facturas
     private fun getParametrosEntradaActividad() : List<Factura>{
-
-
-
-
         //Variables
-        //var facturas: List<Factura>
-        //val json= Gson()
         jsonFiltroFacturasModel = intent.getStringExtra("listaFacturasSinFiltrar").toString()
         var listaFiltrada = emptyList<Factura>()
         val formatoFecha =  SimpleDateFormat("dd/MM/yyyy")
@@ -141,7 +135,7 @@ class SecondActivity : AppCompatActivity(){
             {
                 pagadas = facturas.filter { factura: Factura -> factura.descEstado == "Pagada" }
             }
-
+            Log.d("pagadas",pagadas.toString())
             if (binding.cbAnuladas.isChecked)
             {
                 anuladas = facturas.filter { factura: Factura -> factura.descEstado == "Anuladas" }
@@ -172,7 +166,6 @@ class SecondActivity : AppCompatActivity(){
                 listaFiltrada = listaPorEstado
             }
 
-
             Log.d("listaporEstsado", listaFiltrada.toString())
 
 
@@ -180,9 +173,6 @@ class SecondActivity : AppCompatActivity(){
             if (binding.fechaInicial.text.toString() != "dia/mes/año" && binding.fechaFin.text.toString() != "dia/mes/año" ){
                 firstDate = formatoFecha.parse(binding.fechaFin.text.toString())
                 secondDate = formatoFecha.parse(binding.fechaInicial.text.toString())
-
-                Log.d("firstDate", firstDate.toString())
-                Log.d("SeconDate", secondDate.toString())
 
                 listaFiltrada = listaFiltrada.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate && formatoFecha.parse(factura.fecha) <= firstDate}
             }
@@ -195,21 +185,26 @@ class SecondActivity : AppCompatActivity(){
                 secondDate = formatoFecha.parse(binding.fechaInicial.text.toString())
                 listaFiltrada = listaFiltrada.filter { factura: Factura -> formatoFecha.parse(factura.fecha) >= secondDate }
             }
+            else if (binding.fechaInicial.text.toString() == "dia/mes/año" && binding.fechaFin.text.toString() == "dia/mes/año" )
+            {}
 
 
             Log.d("ListaFiltradaPorFecha", listaFiltrada.toString())
 
+            Log.d("Slider", binding.slImporte.value.toString())
             //Filtrado de factura por su importe
             if (listaFiltrada.isEmpty()){
                 listaFiltrada = facturas.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
                 Log.d("ListaImporte", listaFiltrada.toString())
             }else{
-                listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
-                Log.d("ListaImporte2", listaFiltrada.toString())
+                if ( binding.slImporte.value != 0.0.toFloat())
+                {
+                    listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble()}
+                    Log.d("ListaImporte2", listaFiltrada.toString())
+                }
+
             }
-            /*if(binding.slImporte.value.toDouble() != 0.0){
-                listaFiltrada = listaFiltrada.filter { factura: Factura -> factura.importeOrdenacion <= binding.slImporte.value.toDouble() }
-            }*/
+
             Log.d("listaFiltradaPorImporte", listaFiltrada.toString())
         }
 

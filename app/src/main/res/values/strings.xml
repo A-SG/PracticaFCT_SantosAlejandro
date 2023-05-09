@@ -23,5 +23,7 @@
     <string name="importemaximo">300€</string>
     <string name="importeselecionadominimo">0 -</string>
     <string name="activarRetromock">Retromock</string>
-
+    <string name="PracticasAndroid">Prácticas Android</string>
+    <string name="Practica1">Práctica 1</string>
+    <string name="Practica2">Práctica 2</string>
 </resources>

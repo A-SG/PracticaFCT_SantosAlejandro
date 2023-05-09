@@ -1,16 +1,17 @@
-package com.example.practicaprueba.data.network.domain.ui.view
+package com.example.practicaprueba
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.practicaprueba.PantallaInicio
 import com.example.practicaprueba.data.FacturaRepository
 import com.example.practicaprueba.data.adapter.FacturasAdapter
 import com.example.practicaprueba.data.network.domain.GetFacturasUseCase
 import com.example.practicaprueba.data.network.domain.model.Factura
+import com.example.practicaprueba.data.network.domain.ui.view.MainActivity
+import com.example.practicaprueba.data.network.domain.ui.view.SecondActivity
 import com.example.practicaprueba.data.network.domain.ui.viewmodel.FacturasViewModel
 import com.example.practicaprueba.databinding.ActivityMainBinding
 import com.example.practicaprueba.databinding.ActivityPantallaInicioBinding
@@ -22,12 +23,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class PantallaInicio : AppCompatActivity() {
+
+    /*private lateinit var binding: ActivityPantallaInicioBinding
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityPantallaInicioBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.practica1.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.practica2.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+    }*/
 
     //Variables
-    /*private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: FacturasAdapter
     private val facturasViewModel: FacturasViewModel by viewModels()
     private var pulsaciones = 0
@@ -74,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     val result = getFacturasUseCase()
-                    val intent = Intent(this@MainActivity, SecondActivity::class.java)
+                    val intent = Intent(this@PantallaInicio, SecondActivity::class.java)
 
                     if (result.isNotEmpty()) {
                         listadoFiltraFactura = gson.toJson(result)
@@ -99,31 +120,6 @@ class MainActivity : AppCompatActivity() {
             adapter.facturas = facturasViewModel.facturas.value!!
             adapter.notifyDataSetChanged()
         }
-    }*/
-
-    private lateinit var binding: ActivityPantallaInicioBinding
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityPantallaInicioBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.practica1.setOnClickListener(){
-            val intent = Intent(this, PantallaInicio::class.java)
-            startActivity(intent)
-        }
-
-        binding.practica2.setOnClickListener(){
-            val intent = Intent(this, PantallaInicio::class.java)
-            startActivity(intent)
-        }
-
     }
+
 }
-
-
-
-
-
